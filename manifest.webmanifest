@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "Weekly Audio · 经济学人音频",
+  "short_name": "Weekly Audio",
+  "description": "手机上的周刊音频收听入口。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f3efe7",
+  "theme_color": "#f3efe7",
+  "icons": [{"src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
+}
