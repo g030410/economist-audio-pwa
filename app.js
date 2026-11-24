@@ -1,0 +1,12 @@
+const installButton = document.querySelector('#installButton');
+const installSteps = document.querySelector('#installSteps');
+let installPrompt;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+if (isIOS) installSteps.innerHTML = '<li>在 Safari 中打开此页面。</li><li>点底部“分享”按钮，再选“添加到主屏幕”。</li><li>确认名称后点“添加”。</li>';
+else if (/Android/i.test(navigator.userAgent)) installSteps.innerHTML = '<li>在 Chrome 中打开此页面。</li><li>点右上角菜单，再选“安装应用”或“添加到主屏幕”。</li><li>确认安装。</li>';
+if (isStandalone) installButton.hidden = true;
+window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); installPrompt = event; installButton.hidden = false; });
+installButton.addEventListener('click', async () => { if (!installPrompt) return; installPrompt.prompt(); await installPrompt.userChoice; installPrompt = undefined; installButton.hidden = true; });
+window.addEventListener('appinstalled', () => { installPrompt = undefined; installButton.hidden = true; });
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
